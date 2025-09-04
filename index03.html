@@ -3,36 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>へー！カウンター</title>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
-
-  <!-- スタイル -->
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
-    button {
-      font-size: 24px;
-      padding: 10px 20px;
-      margin: 20px;
-      cursor: pointer;
-    }
-    #count {
-      font-size: 48px;
-      margin-top: 20px;
-    }
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    button { font-size: 2rem; padding: 20px 40px; border-radius: 10px; cursor: pointer; }
+    #count { font-size: 3rem; margin-top: 20px; }
   </style>
 </head>
 <body>
-  <h1>へー！カウンター 🎉</h1>
-  <button id="heyBtn">へー！</button>
+  <h1>へー！カウンター</h1>
+  <button id="btn">へー！</button>
   <div id="count">0</div>
+  
+  <!-- 効果音 -->
+  <audio id="sound" src="https://www.myinstants.com/media/sounds/metal-gear-solid.mp3"></audio>
 
-  <!-- スクリプト -->
-  <script src="script.js"></script>
+  <script>
+    const btn = document.getElementById("btn");
+    const countDisplay = document.getElementById("count");
+    const sound = document.getElementById("sound");
+    let count = 0;
+
+    btn.addEventListener("click", () => {
+      count++;
+      countDisplay.textContent = count;
+      sound.currentTime = 0; // 途中で押しても頭から鳴らす
+      sound.play();
+    });
+  </script>
 </body>
 </html>
