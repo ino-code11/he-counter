@@ -1,79 +1,38 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-　<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
   <meta charset="UTF-8">
   <title>へー！カウンター</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+
+  <!-- スタイル -->
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; }
-    button { font-size: 2rem; padding: 20px 40px; border-radius: 10px; cursor: pointer; }
-    #count { font-size: 3rem; margin-top: 20px; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      font-size: 24px;
+      padding: 10px 20px;
+      margin: 20px;
+      cursor: pointer;
+    }
+    #count {
+      font-size: 48px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>へー！カウンター（みんなで共有）</h1>
-  <button id="btn">へー！</button>
+  <h1>へー！カウンター 🎉</h1>
+  <button id="heyBtn">へー！</button>
   <div id="count">0</div>
-  
-  <!-- 効果音 -->
-  <audio id="sound" src="https://www.myinstants.com/media/sounds/tindeck_1.mp3"></audio>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Firebaseのライブラリを読み込み
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-    import { getFirestore, doc, getDoc, updateDoc, onSnapshot, setDoc } 
-      from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-
-    // ⬇️ Firebaseの設定（自分のプロジェクトで発行されるものに差し替え）
-    const firebaseConfig = {
-  	apiKey: "AIzaSyD4zdJVnpDgp2JJur2XBq9fUoSta1VlGl4",
-  	authDomain: "he---count-machine.firebaseapp.com",
-  	projectId: "he---count-machine",
-  	storageBucket: "he---count-machine.firebasestorage.app",
-  	messagingSenderId: "1077436845977",
-  	appId: "1:1077436845977:web:57217d7983827ad8ca4d08",
-  	measurementId: "G-LMW772R14C"
-    };
-
-    // Firebase初期化
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const btn = document.getElementById("btn");
-    const countDisplay = document.getElementById("count");
-    const sound = document.getElementById("sound");
-
-    const counterRef = doc(db, "counter", "hee"); // Firestore: counter/hee
-
-    // 初期化（まだ無かったら0を作る）
-    const init = async () => {
-      const snap = await getDoc(counterRef);
-      if (!snap.exists()) {
-        await setDoc(counterRef, { count: 0 });
-      }
-    };
-    init();
-
-    // ボタンを押したらカウント+1
-    btn.addEventListener("click", async () => {
-      const snap = await getDoc(counterRef);
-      if (snap.exists()) {
-        const current = snap.data().count || 0;
-        await updateDoc(counterRef, { count: current + 1 });
-        sound.currentTime = 0;
-        sound.play();
-      }
-    });
-
-    // リアルタイムで表示更新
-    onSnapshot(counterRef, (docSnap) => {
-      if (docSnap.exists()) {
-        countDisplay.textContent = docSnap.data().count;
-      }
-    });
-  </script>
+  <!-- スクリプト -->
+  <script src="script.js"></script>
 </body>
 </html>
-
