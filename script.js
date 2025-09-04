@@ -1,4 +1,5 @@
 // Firestoreを使う場合は、Firebaseの設定をここに貼る
+// （前にFirebaseからコピーした「const firebaseConfig = { ... }」のやつ）
 const firebaseConfig = {
   apiKey: "AIzaSyD4zdJVnpDgp2JJur2XBq9fUoSta1VlGl4",
   authDomain: "he---count-machine.firebaseapp.com",
@@ -9,7 +10,8 @@ const firebaseConfig = {
   measurementId: "G-LMW772R14C"
 };
 
-// （前にFirebaseからコピーした「const firebaseConfig = { ... }」のやつ）
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // 初期化（前に案内したfirebase.initializeApp(firebaseConfig); が必要）
 const app = firebase.initializeApp(firebaseConfig);
@@ -36,3 +38,4 @@ btn.addEventListener("click", () => {
     value: firebase.firestore.FieldValue.increment(1)
   });
 });
+
